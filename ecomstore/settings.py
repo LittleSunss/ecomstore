@@ -38,9 +38,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     # 'djangodblog',
     'catalog',
     # 'utils',
+    'cart',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,7 +55,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-#    'djangodblog.DBLogMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    # 'djangodblog.DBLogMiddleware',
 )
 
 ROOT_URLCONF = 'ecomstore.urls'
@@ -70,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # 'ecomstore.utils.context_processors.ecomstore',
                 'ecomstore.context_processors.ecomstore',
+                'django.core.context_processors.media',
             ],
         },
     },
@@ -110,10 +115,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)),'static')
-STATICFILES_DIRS = [
-    ('css', os.path.join(STATIC_ROOT,'css').replace('\\','/')),
-]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\','/')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static/').replace('\\','/'),
+)
+# STATIC_PATH = os.path.join(BASE_DIR, 'templates/staic').replace('\\','/')
+# STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)),'static')
+# STATICFILES_DIRS = [
+#     ('css', os.path.join(STATIC_ROOT,'css').replace('\\','/')),
+# ]
+SITE_ID = 1
 SITE_NAME = 'Modern Musician'
 META_KEYWORDS = 'Music, instruments, music accessories, musician supplies'
 META_DESCRIPTION = 'Modern Musician is an online supplier of instruments, sheet music, and other accessories for musicians'
